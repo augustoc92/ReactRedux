@@ -1,6 +1,32 @@
+body {
+  margin: 0;
+}
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  max-width: 1248px;
+  width: 80%;
+  margin: auto;
+}
+
+header {
+  background-color: rgb(78, 93, 100);
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.title {
+  width: 60%;
+  color: white;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 24px;
+}
+
+.middleColumn {
+  width: 60%;
 }
 
 .buttonAdd {

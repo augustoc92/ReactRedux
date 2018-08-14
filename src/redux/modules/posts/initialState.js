@@ -2,7 +2,8 @@
 const initialState = {
   defaultList: [],
   isFetching: false,
-  errorMsg: ''
+  errorMsg: '',
+  updatingItem: {}
 }
 
 export default initialState

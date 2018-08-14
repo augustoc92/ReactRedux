@@ -1,7 +1,7 @@
 // Initial State
 import initialState from './initialState'
 
-import { GET_DEFAULT_LIST_FULFILLED, UPDATE_ITEM_FROM_LIST_REJECTED, GET_DEFAULT_LIST_PENDING, GET_DEFAULT_LIST_REJECTED } from './const'
+import { GET_DEFAULT_LIST_FULFILLED, UPDATE_ITEM_FROM_LIST_REJECTED, GET_DEFAULT_LIST_PENDING, GET_DEFAULT_LIST_REJECTED, SET_UPDATING_ITEM } from './const'
 import { REMOVE_ITEM_FROM_LIST, UPDATE_ITEM_FROM_LIST, UPDATING_ITEM_FROM_LIST } from './const'
 import { ADD_NEW_ITEM_TO_LIST, ADDING_NEW_ITEM_TO_LIST, ADD_NEW_ITEM_TO_LIST_REJECTED } from './const'
 
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
     }
     case UPDATE_ITEM_FROM_LIST: {
       let index = state.defaultList.findIndex(x => x.id === action.updatedItem.id)
-      let newList = state.defaultList
+      let newList = [...state.defaultList]
       newList[index] = action.updatedItem
       return {
         ...state,
@@ -77,6 +77,12 @@ export default (state = initialState, action) => {
         ...state,
         errorMsg : action.payload.errorMsg,
         isFetching : false
+      }
+    }
+    case SET_UPDATING_ITEM: {
+      return {
+        ...state,
+        updatingItem: action.payload
       }
     }
     default:

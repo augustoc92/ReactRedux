@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import ObjectInList from './ObjectInList'
-import { RingLoader } from 'react-spinners' 
+import { RingLoader } from 'react-spinners'
 import Button from '@material-ui/core/Button'
+import DeleteIcon from '@material-ui/icons/Delete';
+import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add'
-import FloatingActionButtons from '../Icon'
+import TableJson from '../TableJson'
 import './styles.css'
 
 export default class ListJson extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { 
+		this.state = {
 			currentItem: {},
 			shouldUpdate: false,
 		}
@@ -19,36 +21,34 @@ export default class ListJson extends Component {
 		this.props.getDefaultList();
 	}
 
-	createNewItem = () => {
-		this.props.addItemToList();
-	}
-
 	remove = (id) => {
 		this.props.removeFromList(id)
 	}
 
 	handleTitleChange = (event) => {
 		this.setState({
-			 currentItem: { 
+			currentItem: {
 				...this.state.currentItem,
-				title: event.target.value }
-			});
+				title: event.target.value
+			}
+		});
 	}
 
 	handleBodyChange = (event) => {
-		this.setState({ 
-			currentItem: { 
+		this.setState({
+			currentItem: {
 				...this.state.currentItem,
-				body: event.target.value}
+				body: event.target.value
+			}
 		});
 	}
-	
+
 	handleSubmit = (event) => {
 		this.Update()
 		alert('Title has been changed')
 		event.preventDefault();
 	}
-	
+
 	Update() {
 		this.props.updateItemFromList(this.state.currentItem)
 		this.setState({
@@ -60,8 +60,8 @@ export default class ListJson extends Component {
 	willUpdate(item) {
 		console.log(this.state)
 		this.setState({
-			shouldUpdate : true,
-			currentItem : {
+			shouldUpdate: true,
+			currentItem: {
 				title: item.title,
 				id: item.id,
 				body: item.body,
@@ -81,12 +81,38 @@ export default class ListJson extends Component {
 		} = this.state
 		const err = errorMsg && <span>{errorMsg}</span>
 		return (
-			<div className="container">
-				<RingLoader
-					color={'#123abc'} 
-					loading={isFetching} 
-				/>	
-				{ (this.state.shouldUpdate) &&
+			<div>
+				<header>
+					<div className="container">
+						<span className="title"> Style Material Table </span>
+						<RingLoader
+							color={'#123abc'}
+							loading={isFetching}
+						/>
+						{/* <Button variant="fab" color="primary" aria-label="Add">
+							<AddIcon />
+						</Button>
+						<Button variant="fab" color="primary" aria-label="Add">
+							<SearchIcon />
+						</Button> */}
+					</div>
+				</header>
+				<main>
+					<section>
+						<div className="container">
+							<div >
+								<TableJson data={defaultList} />
+							</div>
+						</div>
+					</section>
+					<section>
+						<div className="container">
+						</div>
+					</section>
+				</main>
+
+
+				{/* { (this.state.shouldUpdate) &&
 					<form onSubmit={this.handleSubmit}>
 						<label>
 							Title
@@ -98,13 +124,10 @@ export default class ListJson extends Component {
 						</label>
 							<input type="submit" value="Submit" />
 					</form>
-				}
-				<div>
-				<Button variant="fab" color="primary" aria-label="Add">
-					<AddIcon />
-				</Button>
-				<FloatingActionButtons data={defaultList}/>
-				<button className="buttonAdd" onClick={() => this.createNewItem()}>Add Item</button>
+				} */}
+
+
+				{/* <button className="buttonAdd" onClick={() => this.createNewItem()}>Add Item</button>
 					<ul>
 						{defaultList.map(item => (
 							<div key={`${item.id}${item.title}`} >
@@ -114,8 +137,7 @@ export default class ListJson extends Component {
 							</div>
 						)
 						)}
-					</ul>
-				</div>
+					</ul> */}
 				{err}
 			</div>
 		)
